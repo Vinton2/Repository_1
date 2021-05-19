@@ -13,7 +13,6 @@ class fourthViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     var realm = try! Realm()
-    var a = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +33,9 @@ extension fourthViewController: DescriptionLoaderDelegate{
                 task.descriptions = i
                 realm.add(task)
             }
-            tableView.reloadData()
         }
+        tableView.reloadData()
+        print(categories)
     }
 }
 
@@ -47,8 +47,9 @@ extension fourthViewController: DegreesLoaderDelegate{
                 task.temperatures = i
                 realm.add(task)
             }
-            tableView.reloadData()
         }
+        tableView.reloadData()
+        print(degree)
     }
 }
 
@@ -65,7 +66,11 @@ extension fourthViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        let items = realm.objects(des.self)
+        if items.count != 0{
+            return 8
+        }
+        return 0
     }
 }
 
